@@ -1,5 +1,7 @@
 # SymfonyDeploy
 
+Deploy script for Symfony 3 projects.
+
 Installation
 ------------
 
