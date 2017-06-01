@@ -38,7 +38,10 @@ function clearReleaseFolders($releasesFolder)
 {
 	$folders = [];
 	exec("ls -t {$releasesFolder}", $folders);
-	var_dump($folders);
+	foreach (range(1, 5) as $i) array_shift($folders);
+	foreach ($folders as $folder) {
+		exec("rm -rf {$releasesFolder}{$folder}");
+	}
 }
 
 function prepareFolders($installFolder, $shareds)
