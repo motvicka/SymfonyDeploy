@@ -97,5 +97,16 @@ function createCurrentSymlink($installFolder, $deployFolder)
 
 function selfUpdate()
 {
+	static $url = "https://raw.githubusercontent.com/motvicka/SymfonyDeploy/master/deploy.php";
+	static $context = [ "ssl"=> [ "verify_peer"=>false, "verify_peer_name"=>false ]];
 
+	$localFile = $_SERVER['SCRIPT_NAME'];
+	$gitContent = file_get_contents($url, false, stream_context_create($context));
+	$localContent = file_get_contents($localFile);
+
+	preg_match("~<WARNING>(?P<content>.*)~s", $gitContent, $buff);
+	if (isset($buff['content'])) {
+		$localContent = preg_replace("~<WARNING>(.*)~s", "<WARNING>" . $buff['content'], $localContent);
+		file_put_contents($localFile, $localContent);
+	}
 }
