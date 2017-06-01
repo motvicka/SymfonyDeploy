@@ -17,8 +17,9 @@ run($settings);
 
 function run($settings)
 {
-	$deployFolder = $settings->installFolder . "releases/" . getNameOfDeployFolder() . "/";
+	$releasesFolder = $settings->installFolder . "releases/";
 	$sharedFolder = $settings->installFolder . "shared/";
+	$deployFolder = $releasesFolder . getNameOfDeployFolder() . "/";
 
 	prepareFolders($settings->installFolder, $settings->shareds);
 	gitCloneToFolder($settings->gitRepository, $settings->gitBranch, $deployFolder);
@@ -30,6 +31,13 @@ function run($settings)
 	asseticDump($deployFolder, $settings->env);
 	doctrineUpdate($deployFolder, $settings->env);
 	createCurrentSymlink($settings->installFolder, $deployFolder);
+	clearReleaseFolders($releasesFolder);
+}
+
+function clearReleaseFolders($releasesFolder)
+{
+	$folders = exec("ls -t {$releasesFolder}");
+	var_dump($folders);
 }
 
 function prepareFolders($installFolder, $shareds)
