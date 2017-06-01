@@ -36,7 +36,8 @@ function run($settings)
 
 function clearReleaseFolders($releasesFolder)
 {
-	$folders = exec("ls -t {$releasesFolder}");
+	$folders = [];
+	exec("ls -t {$releasesFolder}", $folders);
 	var_dump($folders);
 }
 
