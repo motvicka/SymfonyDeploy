@@ -5,7 +5,7 @@ $settings->installFolder = "/Users/pix/Desktop/pokusjenom/";
 $settings->shareds = [ "var/logs", "vendor" ];
 $settings->gitRepository = "https://github.com/motvicka/SymfonyDeploy.git";
 $settings->gitBranch = "master";
-$settings->env = "prod";
+$settings->env = "prod1";
 
 # <WARNING> Do not overwrite the subsequent code
 if (isset($argv[1]) and $argv[1] == "self-update") {
@@ -98,7 +98,7 @@ function createCurrentSymlink($installFolder, $deployFolder)
 function selfUpdate()
 {
 	static $url = "https://raw.githubusercontent.com/motvicka/SymfonyDeploy/master/deploy.php";
-	static $context = [ "ssl"=> [ "verify_peer"=>false, "verify_peer_name"=>false ]];
+	static $context = [ "ssl"=> [ "verify_peer" = >false, "verify_peer_name" => false ]];
 
 	$localFile = $_SERVER['SCRIPT_NAME'];
 	$gitContent = file_get_contents($url, false, stream_context_create($context));
@@ -108,5 +108,6 @@ function selfUpdate()
 	if (isset($buff['content'])) {
 		$localContent = preg_replace("~<WARNING>(.*)~s", "<WARNING>" . $buff['content'], $localContent);
 		file_put_contents($localFile, $localContent);
+		echo "Updated\n";
 	}
 }
