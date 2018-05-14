@@ -32,12 +32,12 @@ function run($settings)
 	doctrineUpdate($deployFolder, $settings->env);
 	createCurrentSymlink($settings->installFolder, $deployFolder);
 	clearReleaseFolders($releasesFolder);
-	runScripts(isset($settings->scriptsAfterDeploy) ? $settings->scriptsAfterDeploy : []);
+	runScripts($settings, isset($settings->scriptsAfterDeploy) ? $settings->scriptsAfterDeploy : []);
 }
 
-function runScripts($scripts)
+function runScripts($settings, $scripts)
 {
-	foreach ($scripts as $script) $script();
+	foreach ($scripts as $script) $script($settings);
 }
 
 function clearReleaseFolders($releasesFolder)
