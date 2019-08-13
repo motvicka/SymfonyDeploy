@@ -19,7 +19,7 @@ function run($settings)
 {
 	$releasesFolder = $settings->installFolder . "releases/";
 	$sharedFolder = $settings->installFolder . "shared/";
-	$deployFolder = $releasesFolder . getNameOfDeployFolder() . "/";
+	$settings->deployFolder = $deployFolder = $releasesFolder . getNameOfDeployFolder() . "/";
 
 	prepareFolders($settings->installFolder, $settings->shareds);
 	gitCloneToFolder($settings->gitRepository, $settings->gitBranch, $deployFolder);
